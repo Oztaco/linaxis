@@ -21,7 +21,7 @@ namespace RenderSharp.Library
         {
             get
             {
-                return height;
+                return width;
             }
         }
         private long[] matrixData;
@@ -59,10 +59,28 @@ namespace RenderSharp.Library
             {
                 for (int col = 0; col < answer.width; col++)
                 {
-                    unsafe
-                    {
-                        answer[col, row] = m1[col, row] + m2[col, row];
+                    answer[col, row] = m1[col, row] + m2[col, row];
+                }
+            }
+            return answer;
+        }
+
+        public static Matrix operator *(Matrix m1, Matrix m2) {
+            if (m1.width != m2.height) {
+                throw new ArgumentException(String.Format("The rows of the first matrix {0} does not match the columns of the second matrix {1}.", m1.height, m2.width));
+            }
+            int cellCount = m1.width;
+            long cellValue = 0;
+            Matrix answer = new Matrix(m2.width, m1.height);
+            for (int row = 0; row < answer.height; row++)
+            {
+                for (int col = 0; col < answer.width; col++)
+                {
+                    cellValue = 0;
+                    for (int n = 0; n < cellCount; n++) {
+                        cellValue += m1[n, row] * m2[col, n];
                     }
+                    answer[col, row] = cellValue;
                 }
             }
             return answer;
