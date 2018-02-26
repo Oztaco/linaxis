@@ -17,7 +17,7 @@ namespace RenderSharp
         static void Main(string[] args)
         {
             Matrix<int> m = new Matrix<int>(4, 4);
-
+            Console.Write(m.ToString());
 
             draw();
             Timer timer = new Timer(16.0);
