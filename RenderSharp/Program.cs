@@ -8,12 +8,17 @@ using System.Timers;
 using System.Runtime.InteropServices;
 using System.Drawing;
 
+using RenderSharp.Library;
+
 namespace RenderSharp
 {
     class Program
     {
         static void Main(string[] args)
         {
+            Matrix<int> m = new Matrix<int>(4, 4);
+
+
             draw();
             Timer timer = new Timer(16.0);
             timer.Elapsed += DrawLoop;

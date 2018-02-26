@@ -10,12 +10,12 @@ namespace RenderSharp.Library
     {
         /* Properties */
         Pixel[] pixels;
-        int height;
-        int Height {
+        private int height;
+        public int Height {
             get => height;
         }
-        int width;
-        int Width {
+        private int width;
+        public int Width {
             get => width;
         }
 
