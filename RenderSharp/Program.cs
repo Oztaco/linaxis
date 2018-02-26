@@ -29,7 +29,7 @@ namespace RenderSharp
             m2.SetRow(2, new long[] { 0, 7, 8 });
             Console.Write(m2.ToString());
 
-            Matrix m3 = m1 * m2;
+            Matrix m3 = m1 * 10;
             Console.Write(m3.ToString());
 
             draw();

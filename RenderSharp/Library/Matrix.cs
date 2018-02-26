@@ -65,6 +65,18 @@ namespace RenderSharp.Library
             return answer;
         }
 
+        public static Matrix operator *(Matrix m, long scalar) {
+            Matrix answer = new Matrix(m.width, m.height);
+            for (int row = 0; row < answer.height; row++)
+            {
+                for (int col = 0; col < answer.width; col++)
+                {
+                    answer[col, row] = m[col, row] * scalar;
+                }
+            }
+            return answer;
+        }
+
         public static Matrix operator *(Matrix m1, Matrix m2) {
             if (m1.width != m2.height) {
                 throw new ArgumentException(String.Format("The rows of the first matrix {0} does not match the columns of the second matrix {1}.", m1.height, m2.width));
