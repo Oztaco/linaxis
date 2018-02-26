@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RenderSharp.Library
 {
-    class Matrix<T> where T : IComparable, IEquatable<T>
+    class Matrix
     {
         int height; // Number of rows
         int Height
@@ -24,8 +24,8 @@ namespace RenderSharp.Library
                 return height;
             }
         }
-        private T[] matrixData;
-        public T this[int x, int y] {
+        private long[] matrixData;
+        public long this[int x, int y] {
             get {
                 return matrixData[(y * width) + x];
             }
@@ -34,13 +34,13 @@ namespace RenderSharp.Library
             }
         }
 
-        public Matrix(int height, int width) {
+        public Matrix(int width, int height) {
             this.height = height;
             this.width = width;
-            this.matrixData = new T[height * width];
+            this.matrixData = new long[height * width];
         }
 
-        public void SetRow(int rowNumber, T[] row) {
+        public void SetRow(int rowNumber, long[] row) {
             if (rowNumber >= height) {
                 throw new IndexOutOfRangeException(String.Format("The row {0} does not exist in a matrix of height {1}", rowNumber, this.height));
             }
@@ -53,15 +53,15 @@ namespace RenderSharp.Library
             }
         }
 
-        public static Matrix<T> operator +(Matrix<T> m1, Matrix<T> m2) {
-            Matrix<T> answer = new Matrix<T>(m1.width, m1.height);
+        public static Matrix operator +(Matrix m1, Matrix m2) {
+            Matrix answer = new Matrix(m1.width, m1.height);
             for (int row = 0; row < answer.height; row++)
             {
                 for (int col = 0; col < answer.width; col++)
                 {
                     unsafe
                     {
-                        answer[col, row] = (Convert.ToInt64(m1[col, row]) + Convert.ToInt64(m2[col, row]));
+                        answer[col, row] = m1[col, row] + m2[col, row];
                     }
                 }
             }
@@ -73,11 +73,12 @@ namespace RenderSharp.Library
             StringBuilder str = new StringBuilder();
             for (int row = 0; row < this.height; row++) {
                 for (int col = 0; col < this.width; col++) {
-                    str.AppendFormat("{0}", this[col, row]);
+                    str.AppendFormat("{0} ", this[col, row]);
                     if (col == this.width - 1)
                         str.AppendLine();
                 }
             }
+            str.AppendLine();
             return str.ToString();
         }
     }

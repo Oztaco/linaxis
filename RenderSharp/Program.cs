@@ -16,8 +16,20 @@ namespace RenderSharp
     {
         static void Main(string[] args)
         {
-            Matrix<int> m = new Matrix<int>(4, 4);
-            Console.Write(m.ToString());
+            Matrix m1 = new Matrix(4, 3);
+            m1.SetRow(0, new long[] { 2, 7, 8, 12 });
+            m1.SetRow(1, new long[] { 9, 0, -1, -3 });
+            m1.SetRow(2, new long[] { 0, 3, 2, 9 });
+            Console.Write(m1.ToString());
+
+            Matrix m2 = new Matrix(4, 3);
+            m2.SetRow(0, new long[] { 8, 1, -2, 2 });
+            m2.SetRow(1, new long[] { -3, 1, -3, 1 });
+            m2.SetRow(2, new long[] { 0, 7, 8, -2 });
+            Console.Write(m2.ToString());
+
+            Matrix m3 = m1 + m2;
+            Console.Write(m3.ToString());
 
             draw();
             Timer timer = new Timer(16.0);
