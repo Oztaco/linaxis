@@ -14,23 +14,34 @@ namespace RenderSharp
 {
     class Program
     {
+        static Polygon p = new Polygon(500, 500);
+        static float theta = 0;
+
+
         static void Main(string[] args)
         {
             Matrix m1 = new Matrix(4, 3);
-            m1.SetRow(0, new long[] { 2, 7, 8, 12 });
-            m1.SetRow(1, new long[] { 9, 0, -1, -3 });
-            m1.SetRow(2, new long[] { 0, 3, 2, 9 });
+            m1.SetRow(0, new double[] { 1, 2, 3, 4 });
+            m1.SetRow(1, new double[] { 5, 6, 7, 8 });
+            m1.SetRow(2, new double[] { 9, 10, 11, 12 });
             Console.Write(m1.ToString());
 
             Matrix m2 = new Matrix(3, 4);
-            m2.SetRow(0, new long[] { 8, 1, -2 });
-            m2.SetRow(1, new long[] { -3, 1, -3 });
-            m2.SetRow(2, new long[] { 0, 7, 8 });
-            m2.SetRow(2, new long[] { 0, 7, 8 });
+            m2.SetRow(0, new double[] { -5, -4, -3 });
+            m2.SetRow(1, new double[] { -2, -1, 0 });
+            m2.SetRow(2, new double[] { 1, 2, 3 });
+            m2.SetRow(2, new double[] { 4, 5, 6 });
             Console.Write(m2.ToString());
 
             Matrix m3 = m1 * 10;
             Console.Write(m3.ToString());
+
+            p.CenterPoint[0, 0] = 750;
+            p.CenterPoint[0, 1] = 700;
+            p.AddVertex(600, 500);
+            p.AddVertex(600, 600);
+            p.AddVertex(500, 600);
+            p.AddVertex(500, 500);
 
             draw();
             Timer timer = new Timer(16.0);
@@ -47,8 +58,15 @@ namespace RenderSharp
         static extern IntPtr GetDC(IntPtr hwnd);
 
         static void draw() {
+            theta += 0.05f;
+
             using (Graphics g = Graphics.FromHdc(GetDC(IntPtr.Zero))) {
-                g.FillRectangle(Brushes.AliceBlue, new Rectangle(0, 0, 1000, 1000));
+                //g.FillRectangle(Brushes.AliceBlue, new Rectangle(0, 0, 1000, 1000));
+
+                Polygon rotated = p.GetRotated(theta);
+
+                rotated.Render(g);
+
             }
         } 
     }
