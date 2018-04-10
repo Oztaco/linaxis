@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Library\Canvas.cs" />
     <Compile Include="Library\Matrix.cs" />
+    <Compile Include="Library\Mesh.cs" />
     <Compile Include="Library\Pixel.cs" />
     <Compile Include="Library\Polygon.cs" />
     <Compile Include="Program.cs" />
